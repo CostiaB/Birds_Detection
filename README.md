@@ -6,3 +6,5 @@ Some of the data for that project were downloaded from free sources from google 
 Second part was obtained from YouTube videos. See Images_ from video. ipynb 
 
 The images were labeled and prepared for object detection using this website https://www.makesense.ai/
+
+The easy way to acces your IP camera is yo use addres from this website:  https://www.ispyconnect.com/cameras
