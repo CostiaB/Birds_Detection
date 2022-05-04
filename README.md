@@ -12,4 +12,4 @@ Second part was obtained from YouTube videos. See Images_ from video. ipynb
 
 The images were labeled and prepared for object detection using this website https://www.makesense.ai/
 
-The easy way to access your IP camera is yo use addres from this website:  https://www.ispyconnect.com/cameras
+The easy way to access your IP camera is to use address from this website:  https://www.ispyconnect.com/cameras
