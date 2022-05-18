@@ -22,6 +22,7 @@ class FindBirds:
                 conf_lvl = 0.6, birds_label = 14):
         """
         """
+        assert conf_lvl<1, f'Confidence level {conf_lvl} should be less than 1'
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
         self.source = source
         self.out_dir = out_dir
@@ -46,7 +47,13 @@ class FindBirds:
         Creates a new video streaming object to extract video frame by frame to make prediction on.
         :returns: opencv2 video capture object
         """
-        return cv2.VideoCapture(self.source)
+        try:
+            player = cv2.VideoCapture(self.source)
+            assert player.isOpened()
+        except AssertionError:
+            print("Camera is not available")
+            quit()
+        return player #cv2.VideoCapture(self.source)
     
     def load_model(self):
         """
@@ -82,7 +89,7 @@ class FindBirds:
         self.check_directory()
         
         player = self.get_video_from_source()
-        assert player.isOpened()
+        
         
         i = 0
         while True:
@@ -92,22 +99,22 @@ class FindBirds:
                 ret, frame = player.read()
                 assert ret
             except AssertionError:
-                print("Video ended")
-                break
+                player = self.get_video_from_source()
             
             if i%1==0:
                 results = self.score_frame(frame)
                 
                 detections = [detect[-2]>self.conf_lvl and detect[-1]==self.birds_label for detect in results.xyxy[0]] 
                 if any(detections):
-                    cv2.imwrite(os.path.join(self.out_dir, str(round(time()))+"frame%d.jpg" % i), frame)
+                    cv2.imwrite(os.path.join(self.out_dir, str(round(time())) +"_frame%d.jpg" % i), frame)
                 
                 end_time = time()
                 fps = 1/np.round(end_time - start_time, 3)
-                if i%1000==0:
-                    print(f"Frames Per Second : {fps}")
+                #if i%1000==0:
+                    #print(f"Frames Per Second : {fps}")
             
             i+=1
+            cv2.imshow('frame',frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 player.release()
                 cv2.destroyAllWindows()
