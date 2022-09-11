@@ -39,3 +39,6 @@ List of birds that are coming to the bird feeder:
 |White wagtail           |タイリクハクセキレイ（大陸白鶺鴒)|Белая трясогузка     |
 |Coal tit                |ヒガラ（日雀)          |Московка             |
 
+
+
+![Labeling example](/images/yolo_predictions.jpg?raw=true)
