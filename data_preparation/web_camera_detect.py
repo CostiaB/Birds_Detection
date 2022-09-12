@@ -44,7 +44,8 @@ class FindBirds:
             
     def get_video_from_source(self):
         """
-        Creates a new video streaming object to extract video frame by frame to make prediction on.
+        Creates a new video streaming object to extract video frame by frame
+         to make a prediction.
         :returns: opencv2 video capture object
         """
         try:
